@@ -253,31 +253,6 @@ const PrivacyPolicy = () => {
             </div>
           </motion.div>
 
-          {/* Your Rights */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-surfaceContainerLow rounded-2xl p-8 border border-outline"
-          >
-            <h2 className="text-2xl font-bold text-onSurface mb-4">Your Rights and Choices</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold text-onSurface mb-2">You Can:</h3>
-                <ul className="list-decimal list-inside space-y-1 ml-4">
-                  <li>View Data: All collected device data is displayed within the app</li>
-                  <li>Remove Ads: Purchase the premium ad-free version</li>
-                  <li>Uninstall: Removes all local data; server data is anonymized</li>
-                </ul>
-              </div>
-
-              <div className="bg-primary/10 border border-primary/30 rounded-lg p-4">
-                <h3 className="text-lg font-semibold text-primary mb-2">Data Deletion Requests</h3>
-                <p className="text-sm">To request deletion of data we've collected, contact us with your device model and approximate date. We will process deletion requests within 30 days.</p>
-              </div>
-            </div>
-          </motion.div>
-
           {/* Contact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

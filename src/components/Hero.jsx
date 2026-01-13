@@ -147,47 +147,16 @@ const Hero = () => {
               className="relative"
             >
               {/* Phone Frame */}
-              <div className="relative w-[300px] h-[650px] bg-surfaceVariant rounded-[3rem] p-3 shadow-2xl shadow-primary/20 border-4 border-outline">
-                <div className="w-full h-full bg-surfaceContainerLow rounded-[2.5rem] overflow-hidden relative">
+              <div className="relative w-[300px] h-[650px] bg-surfaceVariant rounded-[1.75rem] p-1 shadow-2xl shadow-primary/20 border-2 border-outline">
+                <div className="w-full h-full bg-surfaceContainerLow rounded-[1.5rem] overflow-hidden relative">
                   {/* Screen Content */}
                   <img 
                     src={AppPreview} 
                     alt="Device Specs App Preview"
-                    className="w-full h-full object-cover rounded-[2rem]"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
-
-              {/* Floating Elements */}
-              <motion.div
-                animate={{
-                  y: [0, -15, 0],
-                  rotate: [0, 5, 0]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute -top-4 -right-4 bg-primaryContainer text-onPrimary px-4 py-2 rounded-full shadow-lg"
-              >
-                <span className="text-sm font-semibold">New</span>
-              </motion.div>
-
-              <motion.div
-                animate={{
-                  y: [0, 15, 0],
-                  rotate: [0, -5, 0]
-                }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute -bottom-4 -left-4 bg-primary text-onPrimary px-4 py-2 rounded-full shadow-lg"
-              >
-                <span className="text-sm font-semibold">Free</span>
-              </motion.div>
             </motion.div>
           </motion.div>
         </div>

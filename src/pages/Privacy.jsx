@@ -13,7 +13,7 @@ const Privacy = () => {
       <Helmet>
         <title>Privacy Policy - Device Specs</title>
         <meta name="description" content="Privacy Policy for Device Specs Android app. Learn how we collect, use, and protect your device information. Transparent data practices with Firebase, AdMob, and Google Play Services." />
-        <link rel="canonical" href="https://devicespecs.app/privacy" />
+        <link rel="canonical" href="https://devicespecs.app/privacy-policy" />
         <meta name="robots" content="index, follow" />
       </Helmet>
       <PrivacyPolicy />

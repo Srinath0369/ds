@@ -8,12 +8,12 @@ import Privacy from './pages/Privacy';
 function App() {
   return (
     <HelmetProvider>
-      <Router>
+      <Router future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <div className="bg-background min-h-screen">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/privacy-policy" element={<Privacy />} />
           </Routes>
           <Footer />
         </div>

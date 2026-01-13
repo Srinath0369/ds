@@ -28,7 +28,6 @@ const Footer = () => {
               <li><a href="/#home" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Home</a></li>
               <li><a href="/#features" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Features</a></li>
               <li><a href="/#screenshots" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Screenshots</a></li>
-              <li><Link to="/privacy" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Privacy Policy</Link></li>
               <li><a href="/#download" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Download</a></li>
             </ul>
           </div>
@@ -37,7 +36,7 @@ const Footer = () => {
           <div>
             <h4 className="text-onSurface font-semibold mb-4">Legal</h4>
             <ul className="space-y-2">
-              <li><Link to="/privacy" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/privacy-policy" className="text-onSurfaceVariant hover:text-onSurface transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
 

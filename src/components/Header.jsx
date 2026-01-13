@@ -21,8 +21,7 @@ const Header = () => {
     { name: 'Home', href: '/' },
     { name: 'Features', href: '/#features' },
     { name: 'Screenshots', href: '/#screenshots' },
-    { name: 'Privacy', href: '/privacy' },
-    { name: 'Download', href: '/#download' },
+    { name: 'Privacy', href: '/privacy-policy' },
   ];
 
   const handleNavClick = (href) => {
@@ -62,7 +61,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              item.href === '/privacy' ? (
+              item.href === '/privacy-policy' ? (
                 <Link
                   key={item.name}
                   to={item.href}
@@ -125,7 +124,7 @@ const Header = () => {
           >
             <nav className="flex flex-col space-y-4 p-6">
               {navItems.map((item) => (
-                item.href === '/privacy' ? (
+                item.href === '/privacy-policy' ? (
                   <Link
                     key={item.name}
                     to={item.href}

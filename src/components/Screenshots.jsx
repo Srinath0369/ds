@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import HomeScreen from '../Images/Home_screen.png';
 import CPU from '../Images/cpu.png';
 import Battery from '../Images/battery.png';
@@ -18,7 +18,7 @@ import MaterialColor3 from '../Images/material_color3.png';
 import Image8 from '../Images/Image (8).png';
 
 const Screenshots = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   
   const screenshots = [
     { id: 1, image: HomeScreen, title: 'Home Dashboard' },
@@ -39,18 +39,21 @@ const Screenshots = () => {
   ];
 
   const handlePrevious = () => {
-    const currentIndex = screenshots.findIndex(s => s.id === selectedImage);
-    const previousIndex = currentIndex > 0 ? currentIndex - 1 : screenshots.length - 1;
-    setSelectedImage(screenshots[previousIndex].id);
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1));
   };
 
   const handleNext = () => {
-    const currentIndex = screenshots.findIndex(s => s.id === selectedImage);
-    const nextIndex = currentIndex < screenshots.length - 1 ? currentIndex + 1 : 0;
-    setSelectedImage(screenshots[nextIndex].id);
+    setCurrentIndex((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0));
   };
 
-  const currentScreenshot = screenshots.find(s => s.id === selectedImage);
+  const getVisibleScreenshots = () => {
+    const visible = [];
+    for (let i = -1; i <= 1; i++) {
+      const index = (currentIndex + i + screenshots.length) % screenshots.length;
+      visible.push({ ...screenshots[index], offset: i });
+    }
+    return visible;
+  };
 
   return (
     <section id="screenshots" className="py-20 bg-surface">
@@ -70,110 +73,105 @@ const Screenshots = () => {
           </p>
         </motion.div>
 
-        <div className="relative overflow-hidden">
+        {/* Carousel with Center Focus */}
+        <div className="relative py-12">
+          <div className="flex items-center justify-center gap-4 h-[500px] md:h-[700px]">
+            {getVisibleScreenshots().map((screenshot) => {
+              const scale = screenshot.offset === 0 ? 1 : 0.7;
+              const opacity = screenshot.offset === 0 ? 1 : 0.3;
+              const baseZIndex = 3 - Math.abs(screenshot.offset);
+              const zIndex = screenshot.offset === 0 ? 10 : baseZIndex;
+              const translateX = screenshot.offset * 340;
+              
+              // Hide side images on mobile
+              const isSideImage = screenshot.offset !== 0;
+              const hiddenOnMobile = isSideImage ? 'hidden md:block' : '';
+
+              return (
+                <motion.div
+                  key={screenshot.id}
+                  initial={false}
+                  animate={{
+                    scale,
+                    opacity,
+                    x: translateX,
+                  }}
+                  transition={{ 
+                    duration: 0.5, 
+                    ease: "easeInOut",
+                    scale: { duration: 0.5 },
+                    opacity: { duration: 0.5 },
+                    x: { duration: 0.5 }
+                  }}
+                  onClick={() => {
+                    if (screenshot.offset < 0) {
+                      handlePrevious();
+                    } else if (screenshot.offset > 0) {
+                      handleNext();
+                    }
+                  }}
+                  className={`absolute w-[250px] md:w-[300px] h-[542px] md:h-[650px] bg-surfaceVariant rounded-[1.75rem] p-1 shadow-2xl shadow-primary/20 border-2 border-outline ${screenshot.offset !== 0 ? 'cursor-pointer' : ''} transition-[z-index] duration-500 ${hiddenOnMobile}`}
+                  style={{ zIndex }}
+                >
+                  <div className="w-full h-full bg-surfaceContainerLow rounded-[1.5rem] overflow-hidden relative">
+                    <img 
+                      src={screenshot.image} 
+                      alt={screenshot.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="absolute top-1/2 left-2 right-2 md:left-4 md:right-4 -translate-y-1/2 flex items-center justify-between pointer-events-none z-20">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handlePrevious}
+              className="w-10 h-10 md:w-14 md:h-14 bg-surfaceVariant hover:bg-primary/20 rounded-full flex items-center justify-center text-onSurface hover:text-primary transition-colors shadow-lg pointer-events-auto"
+            >
+              <FiChevronLeft size={24} className="md:hidden" />
+              <FiChevronLeft size={32} className="hidden md:block" />
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleNext}
+              className="w-10 h-10 md:w-14 md:h-14 bg-surfaceVariant hover:bg-primary/20 rounded-full flex items-center justify-center text-onSurface hover:text-primary transition-colors shadow-lg pointer-events-auto"
+            >
+              <FiChevronRight size={24} className="md:hidden" />
+              <FiChevronRight size={32} className="hidden md:block" />
+            </motion.button>
+          </div>
+
+          {/* Current Screenshot Title */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            key={currentIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mt-8 px-4"
           >
-            {screenshots.map((screenshot, index) => (
-              <motion.div
-                key={screenshot.id}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                onClick={() => setSelectedImage(screenshot.id)}
-                className="flex-shrink-0 w-[280px] h-[607px] bg-surfaceVariant rounded-3xl p-3 shadow-2xl shadow-primary/10 border border-outline cursor-pointer"
-              >
-                <div className="w-full h-full bg-surfaceContainerLow rounded-2xl overflow-hidden">
-                  <img 
-                    src={screenshot.image} 
-                    alt={screenshot.title}
-                    className="w-full h-full object-cover rounded-2xl"
-                  />
-                </div>
-              </motion.div>
-            ))}
+            <h3 className="text-xl md:text-2xl font-bold text-onSurface">{screenshots[currentIndex].title}</h3>
           </motion.div>
 
-          {/* Scroll Indicator */}
-          <div className="text-center mt-4">
-            <p className="text-tertiary text-sm">Scroll horizontally to see more →</p>
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-center gap-1.5 md:gap-2 mt-6 px-4 overflow-x-auto">
+            {screenshots.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`h-1.5 md:h-2 rounded-full transition-all duration-300 flex-shrink-0 ${
+                  index === currentIndex 
+                    ? 'w-6 md:w-8 bg-primary' 
+                    : 'w-1.5 md:w-2 bg-onSurfaceVariant/30 hover:bg-onSurfaceVariant/50'
+                }`}
+              />
+            ))}
           </div>
         </div>
-
-        {/* Image Preview Modal */}
-        <AnimatePresence>
-          {selectedImage && currentScreenshot && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedImage(null)}
-              className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex items-center justify-center p-4"
-            >
-              {/* Close Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 w-12 h-12 bg-surfaceVariant hover:bg-primary/20 rounded-full flex items-center justify-center text-onSurface hover:text-primary transition-colors z-10"
-              >
-                <FiX size={24} />
-              </motion.button>
-
-              {/* Previous Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePrevious();
-                }}
-                className="absolute left-4 w-12 h-12 bg-surfaceVariant hover:bg-primary/20 rounded-full flex items-center justify-center text-onSurface hover:text-primary transition-colors z-10"
-              >
-                <FiChevronLeft size={32} />
-              </motion.button>
-
-              {/* Image Container */}
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-                className="relative max-w-md w-full"
-              >
-                <div className="bg-surfaceVariant rounded-3xl p-4 shadow-2xl">
-                  <img
-                    src={currentScreenshot.image}
-                    alt={currentScreenshot.title}
-                    className="w-full h-auto rounded-2xl"
-                  />
-                  <p className="text-onSurface text-center mt-4 font-semibold text-lg">
-                    {currentScreenshot.title}
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Next Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNext();
-                }}
-                className="absolute right-4 w-12 h-12 bg-surfaceVariant hover:bg-primary/20 rounded-full flex items-center justify-center text-onSurface hover:text-primary transition-colors z-10"
-              >
-                <FiChevronRight size={32} />
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     </section>
   );

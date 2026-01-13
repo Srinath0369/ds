@@ -26,14 +26,14 @@ const Download = () => {
                   href="https://play.google.com/store/apps/details?id=com.srinathx.devicestats"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center space-x-3 bg-inverseSurface text-inverseOnSurface px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-primary/50 transition-all duration-300"
+                  className="inline-flex items-center space-x-3 bg-primaryContainer text-onPrimary px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl shadow-primary/30 hover:shadow-primary/60 transition-all duration-300 border-2 border-primary/50 hover:border-primary"
                 >
-                  <FaGooglePlay size={28} />
+                  <FaGooglePlay size={32} />
                   <div className="text-left">
-                    <div className="text-xs text-tertiary">GET IT ON</div>
-                    <div className="text-lg font-bold">Google Play</div>
+                    <div className="text-xs opacity-90 uppercase tracking-wider">Get it on</div>
+                    <div className="text-xl font-extrabold">Google Play</div>
                   </div>
                 </motion.a>
 
@@ -46,15 +46,6 @@ const Download = () => {
                       <span className="text-primary font-bold text-lg">✓</span>
                     </div>
                     <span className="text-onSurface font-medium">Free to Download</span>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center space-x-2"
-                  >
-                    <div className="w-10 h-10 bg-primaryContainer/30 rounded-full flex items-center justify-center">
-                      <span className="text-primaryContainer font-bold text-lg">✓</span>
-                    </div>
-                    <span className="text-onSurface font-medium">No Ads</span>
                   </motion.div>
                 </div>
               </motion.div>
