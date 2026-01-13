@@ -1,0 +1,36 @@
+{
+  "name": "Device Specs",
+  "short_name": "DeviceSpecs",
+  "description": "Complete Android device information and hardware monitoring app",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121318",
+  "theme_color": "#B7CAFF",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["utilities", "productivity", "tools"],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1080x2340",
+      "type": "image/png",
+      "label": "Home Dashboard"
+    }
+  ]
+}

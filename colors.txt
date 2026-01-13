@@ -1,0 +1,21 @@
+primary = Color(0xFFB7CAFF),       // Text blue
+    secondary = Color(0xFFE3E3E3),     // Text
+    tertiary = Color(0xFFBCBCBE),      // 80% text opacity
+    error = Color(0xFFFF4C4C),         // Red for errors
+    primaryContainer = Color(0xFF7A90C8),
+
+    background = Color(0xFF121318),    // Main background
+    surface = Color(0xFF121318),
+    surfaceContainerLow = Color(0xFF1E2028),       // Secondary background
+    surfaceVariant = Color(0xFF2E323E),// Third background
+
+    onSurface = Color(0xFFE3E3E3),     // Normal text color
+    onSurfaceVariant = Color(0xFFBCBCBE), // Muted text
+    onPrimary = Color(0xFF00143B),
+    surfaceContainerHighest = Color(0xFF1A1B20),
+    surfaceTint = Color(0xFF000000),
+
+    inversePrimary = Color(0xFF2A4174),
+    inverseSurface = Color(0xFFE3E3E3),
+    inverseOnSurface = Color(0xFF121318),
+    outline = Color(0xFF2E323E),       // Border shade
